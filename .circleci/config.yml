@@ -19,18 +19,16 @@ jobs:
   building:
     executor: my-executor
     steps:
-      - checkout # check out the code in the project directory
-      - restore_cache:
-        keys:
-          - v1-deps-{{ checksum "package-lock.json" }}
-      - run: npm install
+      - checkout
       - save_cache:
-        key: v1-deps-{{ checksum "package-lock.json" }}
-        paths:
-          - node_modules
+          key: v1-deps-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - restore_cache:
+          key: v1-deps-{{ checksum "yarn.lock" }}
 
 workflows:
   version: 2
-  building_and_deployment: # this is the name of our workflow
+  building: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
-      - building:
+      - building
