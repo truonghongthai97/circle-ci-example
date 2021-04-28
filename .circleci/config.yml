@@ -20,13 +20,13 @@ jobs:
     executor: my-executor
     steps:
       - checkout
+      - restore_cache:
+          key: v1-deps-{{ checksum "yarn.lock" }}
       - run: yarn install
       - save_cache:
           key: v1-deps-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-      - restore_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
 
 workflows:
   version: 2
