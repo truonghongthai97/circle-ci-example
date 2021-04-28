@@ -20,6 +20,7 @@ jobs:
     executor: my-executor
     steps:
       - checkout
+      - run: yarn install
       - save_cache:
           key: v1-deps-{{ checksum "yarn.lock" }}
           paths:
